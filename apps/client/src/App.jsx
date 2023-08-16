@@ -2,8 +2,11 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import ImageData from './components/cloudinary/ImageDataFunction'
+
 
 function App() {
+
   const [count, setCount] = useState(0)
 
   return (
@@ -24,6 +27,9 @@ function App() {
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
+        {/* Esto de abajo es la llamada del cloudinary que muestra la info tmb */}
+        <ImageData />
+      
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more

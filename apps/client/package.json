@@ -10,8 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.10.1",
+    "@uploadthing/solid": "^5.1.2",
+    "cloudinary-core": "^2.13.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "solidjs-dropzone": "^1.0.0",
+    "uploadthing": "^5.3.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
