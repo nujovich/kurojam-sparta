@@ -1,10 +1,11 @@
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { ButtonDemo } from "./components/ButtonDemo";
+import { ThemeProvider } from "./components/theme-provider";
 
 function App() {
   return (
-    <>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="flex justify-center">
         <a href="https://vitejs.dev" target="">
           <img
@@ -33,7 +34,7 @@ function App() {
           Click on the Vite and React logos to learn more
         </p>
       </div>
-    </>
+      </ThemeProvider>
   );
 }
 
