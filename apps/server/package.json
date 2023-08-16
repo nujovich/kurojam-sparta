@@ -4,6 +4,7 @@
   "description": "",
   "main": "express.js",
   "scripts": {
+    "dev": "node --watch express.js",
     "start": "node --watch express.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,5 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "4.18.2"
+  },
+  "volta": {
+    "node": "20.5.1"
   }
 }
