@@ -1,32 +1,24 @@
 import React, { Component } from "react";
-
+import { Button } from "@/components/ui/button";
 
 class CloudinaryUploadWidget extends Component {
   componentDidMount() {
     const cloudName = `dtyey9uos`;
     const uploadPreset = `kofgxo4l`; 
-   
-    
-   
+
     var myWidget = window.cloudinary.createUploadWidget(
       {
         cloudName: cloudName,
         uploadPreset: uploadPreset
       },
       (error, result) => {
-        if (!error && result && result.event === "success") {
-          
+        if (!error && result && result.event === "success") {    
           // document
           // .getElementById("uploadedimage").src = result.info.secure_url
           //   .setAttribute("src", result.info.url); NO BORRAR POR EL MOMENTO
           this.props.handleImageUpload(result.info.url);
-          //this.props.handleImageId(result.info.public_id);
-
-            
-          
+          //this.props.handleImageId(result.info.public_id);       
             }
-        
-        
           }
           );
     document.getElementById("upload_widget").addEventListener(
@@ -39,11 +31,11 @@ class CloudinaryUploadWidget extends Component {
   }
 
   render() {
-    return (<div className="flex justify-center items-center h-screen">
+    return (<div className="flex justify-center items-center">
 
-      <button  type="button" id="upload_widget" className="cloudinary-button bg-blue-300">
-        Upload
-      </button>
+      <Button  type="button" id="upload_widget" className="text-3xl font-extrabold mx-2 my-2 text-cyan-500 py-6 px-8"  >
+        Upload Your Meme
+      </Button>
       </div>
     );
   }
