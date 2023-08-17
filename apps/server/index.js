@@ -1,8 +1,13 @@
 const express = require("express");
 const path = require("node:path");
 const app = express();
-const routes = require('./routes');
-const bodyParser = require('body-parser');
+const routes = require("./routes");
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
+const { connectDatabase } = require("./utils/db");
+
+dotenv.config();
+connectDatabase(app);
 
 const port = process.env.PORT ?? 3000;
 
@@ -20,7 +25,7 @@ app.get("/ping", (req, res) => {
   });
 });
 
-app.use('/', routes);
+app.use("/", routes);
 
 app.listen(port, () => {
   console.log(`KuroJam Sparta Server is running on port ${port}`);

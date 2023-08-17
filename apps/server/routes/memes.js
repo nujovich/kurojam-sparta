@@ -1,28 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const controller = require("../controllers/memes");
 
-router.get("/", (req, res) => {
-  res.json({
-    message: "Hello from memes!",
-  });
-});
-
-router.get("/:id", (req, res) => {
-  res.json({
-    message: `Hello from memes! ${req.params.id}`,
-  });
-});
-
-router.post("/", (req, res) => {
-  res.json({
-    message: "Hello from post!",
-  });
-});
-
-router.delete("/:id", (req, res) => {
-  res.json({
-    message: `Hello from delete! ${req.params.id}`,
-  })
-});
+router.get("/", controller.getAll);
+router.get("/:id", controller.getOne);
+router.post("/", controller.create);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.delete);
 
 module.exports = router;
