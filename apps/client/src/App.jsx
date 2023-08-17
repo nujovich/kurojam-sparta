@@ -1,3 +1,4 @@
+import ImageData from './components/cloudinary/ImageDataFunction'
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { ButtonDemo } from "./components/ButtonDemo";
@@ -33,6 +34,9 @@ function App() {
         <p className="text-slate-400">
           Click on the Vite and React logos to learn more
         </p>
+        {/* Esto de abajo es la llamada del cloudinary que muestra la info tmb */}
+        <ImageData />
+      
       </div>
       </ThemeProvider>
   );

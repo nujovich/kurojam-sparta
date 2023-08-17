@@ -10,6 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.10.1",
+    "@uploadthing/solid": "^5.1.2",
+    "cloudinary-core": "^2.13.0",
+    "solidjs-dropzone": "^1.0.0",
+    "uploadthing": "^5.3.3",
     "@radix-ui/react-alert-dialog": "^1.0.4",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.6.1",
