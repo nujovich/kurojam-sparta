@@ -5,6 +5,7 @@
   "main": "express.js",
   "scripts": {
     "start": "node --watch express.js",
+    "dev": "node --watch express.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
