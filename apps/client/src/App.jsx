@@ -9,7 +9,7 @@ import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/clerk-react";
 
 function App() {
   const clerk = useClerk();
-
+  
   const handleCreateMeme = async () => {
     const response = await createOne("memes", {
       name: "Meme",
