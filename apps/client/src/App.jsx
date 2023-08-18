@@ -5,8 +5,11 @@ import { ButtonDemo } from "./components/ButtonDemo";
 import { ThemeProvider } from "./components/theme-provider";
 import { Button } from "./components/ui/button";
 import { createOne, getAll } from "./lib/entity";
+import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/clerk-react";
 
 function App() {
+  const clerk = useClerk();
+  
   const handleCreateMeme = async () => {
     const response = await createOne("memes", {
       name: "Meme",
@@ -51,12 +54,29 @@ function App() {
         </p>
         {/* Esto de abajo es la llamada del cloudinary que muestra la info tmb */}
         <ImageData />
-        <Button className="mt-2" onClick={handleCreateMeme}>
-          Create Meme Record
-        </Button>
-        <Button className="mt-2" onClick={handleGetAllMemes}>
-          Get All Meme Records
-        </Button>
+        <div className="flex justify-center">
+          <h2 className="text-2xl">Meme Records</h2>
+          <Button className="mt-2" onClick={handleCreateMeme}>
+            Create Meme Record
+          </Button>
+          <Button className="mt-2" onClick={handleGetAllMemes}>
+            Get All Meme Records
+          </Button>
+        </div>
+        <div className="flex justify-center">
+          <h2 className="text-2xl">Login with clerk</h2>
+          <SignedOut>
+            <Button className="mt-2" onClick={() => clerk.openSignUp()}>
+              Sign Up
+            </Button>
+            <Button className="mt-2" onClick={() => clerk.openSignIn()}>
+              Sign In
+            </Button>
+          </SignedOut>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+        </div>
       </div>
     </ThemeProvider>
   );
