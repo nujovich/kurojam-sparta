@@ -41,3 +41,8 @@ exports.generate = async (req, res) => {
   const result = await generateImage(req.body.prompt);
   res.json(result);
 };
+
+exports.trending = async (req, res) => {
+  const memes = await Memes.find().sort({ likes: -1 }).limit(100);
+  res.json(memes);
+};
