@@ -1,6 +1,5 @@
 
 import { ThemeProvider } from "./components/theme-provider";
-
 import SearchBar from './components/serachbar/SearchBar';
 import MemeCard from './components/MemeCard/MemeCard';
 
