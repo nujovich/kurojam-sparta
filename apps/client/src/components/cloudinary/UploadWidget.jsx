@@ -13,11 +13,9 @@ class CloudinaryUploadWidget extends Component {
       },
       (error, result) => {
         if (!error && result && result.event === "success") {    
-          // document
-          // .getElementById("uploadedimage").src = result.info.secure_url
-          //   .setAttribute("src", result.info.url); NO BORRAR POR EL MOMENTO
+         
           this.props.handleImageUpload(result.info.url);
-          //this.props.handleImageId(result.info.public_id);       
+             
             }
           }
           );
