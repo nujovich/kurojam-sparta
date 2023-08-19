@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/memes");
 
+router.post("/generate", controller.generate);
 router.get("/", controller.getAll);
 router.get("/:id", controller.getOne);
 router.post("/", controller.create);
