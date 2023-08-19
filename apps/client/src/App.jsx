@@ -1,27 +1,27 @@
-import ImageData from "./components/cloudinary/ImageDataFunction";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import { ButtonDemo } from "./components/ButtonDemo";
-import { ThemeProvider } from "./components/theme-provider";
-import { Button } from "./components/ui/button";
-import { createOne, getAll } from "./lib/entity";
-import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/clerk-react";
+import ImageData from './components/cloudinary/ImageDataFunction'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import { ButtonDemo } from './components/ButtonDemo'
+import { ThemeProvider } from './components/theme-provider'
+import { Button } from './components/ui/button'
+import { createOne, getAll } from './lib/entity'
+import { SignedIn, SignedOut, UserButton, useClerk } from '@clerk/clerk-react'
 
 function App() {
-  const clerk = useClerk();
-  
+  const clerk = useClerk()
+
   const handleCreateMeme = async () => {
-    const response = await createOne("memes", {
-      name: "Meme",
-      url: "meme.com",
-    });
-    console.log(response);
-  };
+    const response = await createOne('memes', {
+      name: 'Meme',
+      url: 'meme.com',
+    })
+    //console.log(response);
+  }
 
   const handleGetAllMemes = async () => {
-    const response = await getAll("memes");
-    console.log(response);
-  };
+    const response = await getAll('memes')
+    //console.log(response);
+  }
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -79,7 +79,7 @@ function App() {
         </div>
       </div>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App
