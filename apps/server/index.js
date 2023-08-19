@@ -4,6 +4,7 @@ const app = express();
 const routes = require("./routes");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const { connectDatabase } = require("./utils/db");
 
 dotenv.config();
@@ -15,6 +16,7 @@ const port = process.env.PORT ?? 3000;
 const buildPath = path.resolve(__dirname, "../client/");
 
 app.use(express.static(buildPath));
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
