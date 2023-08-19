@@ -1,4 +1,5 @@
 const Memes = require("../models/Memes");
+const { generateImage } = require("../services/ai");
 
 exports.getAll = async (req, res) => {
   const memes = await Memes.find();
@@ -34,4 +35,9 @@ exports.delete = async (req, res) => {
   res.json({
     message: "Meme deleted",
   });
+};
+
+exports.generate = async (req, res) => {
+  const result = await generateImage(req.body.prompt);
+  res.json(result);
 };
