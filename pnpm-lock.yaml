@@ -44,9 +44,6 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.2.14)(react@18.2.0)
-      '@uploadthing/solid':
-        specifier: ^5.1.2
-        version: 5.1.2(solid-js@1.7.11)(solidjs-dropzone@1.0.0)(uploadthing@5.3.3)(zod@3.22.1)
       class-variance-authority:
         specifier: ^0.6.1
         version: 0.6.1
@@ -80,9 +77,6 @@ importers:
       tw-elements:
         specifier: ^1.0.0-beta2
         version: 1.0.0-beta2(postcss@8.4.25)
-      uploadthing:
-        specifier: ^5.3.3
-        version: 5.3.3(zod@3.22.1)
     devDependencies:
       '@types/node':
         specifier: ^20.4.1
@@ -1515,39 +1509,6 @@ packages:
     dependencies:
       '@types/node': 20.5.0
       '@types/webidl-conversions': 7.0.0
-    dev: false
-
-  /@uploadthing/mime-types@0.2.0:
-    resolution: {integrity: sha512-nRcdyM622+GYT9SdaJIVLknqoc8i7krItinfuBPtvmPc+UNGDJ+pMkr4AatYp88cEc4iYtPlN8flJvZ3dNtgrg==}
-    dev: false
-
-  /@uploadthing/shared@5.2.0(@uploadthing/mime-types@0.2.0)(zod@3.22.1):
-    resolution: {integrity: sha512-Mn1oYFX1XIfpU0L69wwBwOUfWbCp7ixq+8kB9aFOqmvxey8crey4gEwgPEhixfR1h42XfD7dOHKY/nOs7kkGjw==}
-    peerDependencies:
-      '@uploadthing/mime-types': ^0.2.0
-      zod: ^3.21.4
-    peerDependenciesMeta:
-      '@uploadthing/mime-types':
-        optional: true
-    dependencies:
-      '@uploadthing/mime-types': 0.2.0
-      zod: 3.22.1
-    dev: false
-
-  /@uploadthing/solid@5.1.2(solid-js@1.7.11)(solidjs-dropzone@1.0.0)(uploadthing@5.3.3)(zod@3.22.1):
-    resolution: {integrity: sha512-u7VKAP9qqd4MZwfnxAfxfbEiRLQ5VW/FXIhXs5XvIr6OZqP2Q0CHq6gaMJiuIF0AyxJahYTBAxxx6/yBdmyz1A==}
-    peerDependencies:
-      solid-js: ^1.5.3
-      solidjs-dropzone: ^1.0.0
-      uploadthing: ^5.0.0
-    dependencies:
-      '@uploadthing/shared': 5.2.0(@uploadthing/mime-types@0.2.0)(zod@3.22.1)
-      solid-js: 1.7.11
-      solidjs-dropzone: 1.0.0(solid-js@1.7.11)
-      uploadthing: 5.3.3(zod@3.22.1)
-    transitivePeerDependencies:
-      - '@uploadthing/mime-types'
-      - zod
     dev: false
 
   /@vitejs/plugin-react@4.0.1(vite@4.4.5):
@@ -5176,15 +5137,6 @@ packages:
       registry-url: 3.1.0
     dev: true
 
-  /uploadthing@5.3.3(zod@3.22.1):
-    resolution: {integrity: sha512-tYg44gX7+4Tf5UBZTS0Cjx44l6DBI4kaPdFDH2jUuxDp1CyTxUBUaFNvsA1AqhxQsxi3ZR+pGD917tn6kbPp/w==}
-    dependencies:
-      '@uploadthing/mime-types': 0.2.0
-      '@uploadthing/shared': 5.2.0(@uploadthing/mime-types@0.2.0)(zod@3.22.1)
-    transitivePeerDependencies:
-      - zod
-    dev: false
-
   /upper-case-first@1.1.2:
     resolution: {integrity: sha512-wINKYvI3Db8dtjikdAqoBbZoP6Q+PZUyfMR7pmwHzjC2quzSkUq5DmPrTtPEqHaz8AGtmsB4TqwapMTM1QAQOQ==}
     dependencies:
@@ -5402,7 +5354,3 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
-
-  /zod@3.22.1:
-    resolution: {integrity: sha512-+qUhAMl414+Elh+fRNtpU+byrwjDFOS1N7NioLY+tSlcADTx4TkCUua/hxJvxwDXcV4397/nZ420jy4n4+3WUg==}
-    dev: false
