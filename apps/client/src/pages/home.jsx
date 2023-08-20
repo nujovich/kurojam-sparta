@@ -4,6 +4,8 @@ import ImageData from "../components/cloudinary/ImageDataFunction";
 import SearchBar from "../components/serachbar/SearchBar";
 import MemeCard from "../components/MemeCard/MemeCard";
 import { request } from "../lib/entity";
+import { SignedOut } from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
 
 function Home() {
   const [trending, setTrending] = useState([]);
@@ -39,7 +41,7 @@ function Home() {
         </div>
       </div>
       <div className="flex flex-wrap justify-center gap-4">
-        {trending.map((meme) => (
+        {!trending ? trending.map((meme) => (
           <div key={meme.id}>
             <img
               src={meme.url}
@@ -47,7 +49,18 @@ function Home() {
               className="w-auto h-auto max-w-full max-h-96"
             />
           </div>
-        ))}
+        )): <div className="text-2xl inline-block gap-2">
+            If you want to see trending, please
+            <SignedOut>
+              <Button className="m-2" onClick={() => clerk.openSignUp()}>
+                Sign Up
+              </Button>
+              <span> or </span>
+              <Button className="m-2" onClick={() => clerk.openSignIn()}>
+                Sign In
+              </Button>
+            </SignedOut>
+          </div>}
       </div>
     </>
   );
