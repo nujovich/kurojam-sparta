@@ -7,5 +7,5 @@ export const fetchCreator = (url, method = 'GET', handleErrors, body) => {
     body: body ? JSON.stringify(body) : undefined,
   })
     .then((res) => res.json())
-    .catch((err) => (handleErrors ? { error } : Error(error.message)))
-}
+    .catch((error) => (handleErrors ? { error } : Error(error.message)));
+};

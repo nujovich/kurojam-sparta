@@ -1,13 +1,15 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const path = require("node:path");
 const app = express();
 const routes = require("./routes");
 const bodyParser = require("body-parser");
-const dotenv = require("dotenv");
+
 const cors = require("cors");
 const { connectDatabase } = require("./utils/db");
 
-dotenv.config();
 connectDatabase(app);
 
 const port = process.env.PORT ?? 3000;
