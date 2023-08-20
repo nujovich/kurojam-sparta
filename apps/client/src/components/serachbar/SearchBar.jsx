@@ -16,13 +16,7 @@ const SearchBar = () => {
   return (
     <div className="flex items-center w-full my-4 space-x-6">
       <Button className="px-8 py-6 mx-2 my-2 " type="submit">
-        Rate Public Memes
-      </Button>
-      <Button className="px-8 py-6 mx-2 my-2 " type="submit">
         Favorites
-      </Button>
-      <Button className="px-8 py-6 mx-2 my-2 " type="submit">
-        Last Searches
       </Button>
 
       <Input

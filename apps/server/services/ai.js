@@ -1,7 +1,8 @@
 const { OpenAI } = require("openai");
 
+const openai = new OpenAI();
+
 const generateImage = async (prompt) => {
-  const openai = new OpenAI();
   if (!prompt.trim()) {
     throw new Error("Prompt is required");
   }
