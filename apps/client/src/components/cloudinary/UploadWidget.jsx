@@ -20,10 +20,10 @@ class CloudinaryUploadWidget extends Component {
     document.getElementById("upload_widget").addEventListener(
       "click",
       function () {
-        myWidget.open();
+        myWidget.open()
       },
       false
-    );
+    )
   }
 
   render() {
@@ -33,8 +33,8 @@ class CloudinaryUploadWidget extends Component {
           Upload Your Meme
         </Button>
       </div>
-    );
+    )
   }
 }
 
-export default CloudinaryUploadWidget;
+export default CloudinaryUploadWidget

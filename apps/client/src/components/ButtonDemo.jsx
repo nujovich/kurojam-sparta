@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 
 export function ButtonDemo() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
   return (
     <Button
       onClick={() => setCount((count) => count + 1)}
@@ -10,5 +10,5 @@ export function ButtonDemo() {
     >
       count is {count}
     </Button>
-  );
+  )
 }

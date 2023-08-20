@@ -24,4 +24,4 @@ function App() {
   return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
 }
 
-export default App;
+export default App

@@ -24,6 +24,10 @@ module.exports = {
   },
   plugins: ["react-refresh"],
   rules: {
+    indent: ['error', 2],
+    'no-console': 'error',
+    'no-unused-vars': 'error',
+    quotes: ['warn', 'single'],
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true },
