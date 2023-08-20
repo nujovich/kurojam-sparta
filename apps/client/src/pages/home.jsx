@@ -4,17 +4,19 @@ import ImageData from "../components/cloudinary/ImageDataFunction";
 import SearchBar from "../components/serachbar/SearchBar";
 import MemeCard from "../components/MemeCard/MemeCard";
 import { request } from "../lib/entity";
+import { SignedOut } from '@clerk/clerk-react'
+import { Button } from '@/components/ui/button'
 
 function Home() {
-  const [trending, setTrending] = useState([]);
+  const [trending, setTrending] = useState([])
 
   useEffect(() => {
     const fetchTrendring = async () => {
-      const res = await request("memes/trending");
-      setTrending(res);
-    };
-    fetchTrendring();
-  }, []);
+      const res = await request('memes/trending')
+      setTrending(res)
+    }
+    fetchTrendring()
+  }, [])
 
   return (
     <>
@@ -39,18 +41,33 @@ function Home() {
         </div>
       </div>
       <div className="flex flex-wrap justify-center gap-4">
-        {trending.map((meme) => (
-          <div key={meme.id}>
-            <img
-              src={meme.url}
-              alt={meme.name}
-              className="w-auto h-auto max-w-full max-h-96"
-            />
+        {!trending ? (
+          trending.map((meme) => (
+            <div key={meme.id}>
+              <img
+                src={meme.url}
+                alt={meme.name}
+                className="w-auto h-auto max-w-full max-h-96"
+              />
+            </div>
+          ))
+        ) : (
+          <div className="text-2xl inline-block gap-2">
+            If you want to see trending, please
+            <SignedOut>
+              <Button className="m-2" onClick={() => clerk.openSignUp()}>
+                Sign Up
+              </Button>
+              <span> or </span>
+              <Button className="m-2" onClick={() => clerk.openSignIn()}>
+                Sign In
+              </Button>
+            </SignedOut>
           </div>
-        ))}
+        )}
       </div>
     </>
-  );
+  )
 }
 
 export default Home;
