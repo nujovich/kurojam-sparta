@@ -1,36 +1,36 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import ImageData from "../cloudinary/ImageDataFunction";
+import { Button } from '@/components/ui/button'
+import { useState } from 'react'
+import { Input } from '@/components/ui/input'
+import ImageData from '../cloudinary/ImageDataFunction'
+import { Loader2 } from "lucide-react"
 
-const SearchBar = () => {
-  const [searchValue, setSearchValue] = useState([]);
+const SearchBar = ({ onClick, isLoading }) => {
+  const [searchValue, setSearchValue] = useState([])
 
   const handleInputOnChange = (event) => {
-    event.preventDefault();
-    setSearchValue(event);
-  };
+    setSearchValue(event.target.value)
+  }
 
-  const onSubmit = () => {};
+  const handleClick = async () => {
+    onClick(searchValue)
+  }
 
   return (
     <div className="flex items-center w-full my-4 space-x-6">
-      <Button className="px-8 py-6 mx-2 my-2 " type="submit">
-        Favorites
-      </Button>
-
-      <Input
-        onChange={handleInputOnChange}
-        type="text"
-        placeholder="Search"
-        className="w-[500px] text-2xl py-6"
-      />
-      <Button className="px-8 py-6 mx-2 my-2" type="submit">
-        Search
-      </Button>
-      <ImageData />
+      <div className="flex w-full max-w-lg items-center space-x-2">
+        <Input
+          type="text"
+          placeholder="A duck with a hat"
+          className="w-full"
+          onChange={handleInputOnChange}
+        />
+        <Button disabled={isLoading} onClick={handleClick}>
+          {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {!isLoading && 'Search'}
+        </Button>
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar
