@@ -15,10 +15,6 @@ const SearchBar = () => {
 
   return (
     <div className="flex items-center w-full my-4 space-x-6">
-      <Button className="px-8 py-6 mx-2 my-2 " type="submit">
-        Favorites
-      </Button>
-
       <Input
         onChange={handleInputOnChange}
         type="text"
@@ -30,7 +26,7 @@ const SearchBar = () => {
       </Button>
       <ImageData />
     </div>
-  );
+  )
 };
 
 export default SearchBar;
