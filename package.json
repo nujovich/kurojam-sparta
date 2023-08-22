@@ -6,6 +6,12 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
+  "lint-staged":{
+    "**/*.{js,jsx,ts,tsx}":[
+      "npx prettier --write",
+      "npx eslint --fix"
+    ]
+  },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",
     "eslint": "^7.32.0",
