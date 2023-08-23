@@ -1,6 +1,7 @@
 const Memes = require("../models/Memes");
 const { generateImage } = require("../services/ai");
 const { getUser } = require("../services/clerk");
+const { ObjectId } = require("mongodb");
 
 exports.getAll = async (req, res) => {
   const memes = await Memes.find();
@@ -13,11 +14,20 @@ exports.getOne = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
+  if (!req.body || !req.body.url || !req.body.prompt || !req.body.userId) {
+    res.status(400).json({
+      message: "Missing required fields",
+    });
+    return;
+  }
+
   const meme = new Memes({
-    name: req.body.name,
+    _id: new ObjectId(),
     url: req.body.url,
-    caption: req.body.caption,
+    userId: req.body.userId,
+    prompt: req.body.prompt,
   });
+
   await meme.save();
   res.status(201).json(meme);
 };
@@ -51,7 +61,7 @@ exports.trending = async (req, res) => {
 exports.rate = async (req, res) => {
   const memes = await Memes.aggregate([{ $sample: { size: 1 } }]);
   const meme = memes.pop();
-  
+
   const user = await getUser(meme.userId);
   meme.user = user;
 

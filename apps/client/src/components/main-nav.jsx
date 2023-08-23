@@ -1,15 +1,21 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
-import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { cn } from '@/lib/utils'
+import { Link } from 'react-router-dom'
 
 export function MainNav({ className, ...props }) {
   return (
     <div className="flex items-center justify-between">
-      <img src="https://media.giphy.com/media/rtRflhLVzbNWU/giphy.gif" alt="DucKurophy" className="h-10" />
+      <Link to="/">
+        <img
+          src="https://media.giphy.com/media/rtRflhLVzbNWU/giphy.gif"
+          alt="DucKurophy"
+          className="h-10"
+        />
+      </Link>
       <h1 className="text-2xl font-bold">DUCKUROPHY</h1>
       <nav
-        className={cn("flex items-center space-x-4 lg:space-x-6", className)}
+        className={cn('flex items-center space-x-4 lg:space-x-6', className)}
         {...props}
       >
         <Link
@@ -32,13 +38,13 @@ export function MainNav({ className, ...props }) {
         </Link>
       </nav>
     </div>
-  );
+  )
 }
 
 MainNav.propTypes = {
   className: PropTypes.string,
-};
+}
 
 MainNav.defaultProps = {
-  className: "",
-};
+  className: '',
+}
