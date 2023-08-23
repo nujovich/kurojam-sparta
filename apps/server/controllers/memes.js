@@ -13,11 +13,19 @@ exports.getOne = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
+  if (!req.body || !req.body.url || !req.body.prompt || !req.body.userId) {
+    res.status(400).json({
+      message: "Missing required fields",
+    });
+    return;
+  }
+
   const meme = new Memes({
-    name: req.body.name,
     url: req.body.url,
-    caption: req.body.caption,
+    prompt: req.body.prompt,
+    userId: req.body.userId,
   });
+
   await meme.save();
   res.status(201).json(meme);
 };
@@ -51,7 +59,7 @@ exports.trending = async (req, res) => {
 exports.rate = async (req, res) => {
   const memes = await Memes.aggregate([{ $sample: { size: 1 } }]);
   const meme = memes.pop();
-  
+
   const user = await getUser(meme.userId);
   meme.user = user;
 
