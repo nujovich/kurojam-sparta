@@ -1,6 +1,7 @@
 const Memes = require("../models/Memes");
 const { generateImage } = require("../services/ai");
 const { getUser } = require("../services/clerk");
+const { ObjectId } = require("mongodb");
 
 exports.getAll = async (req, res) => {
   const memes = await Memes.find();
@@ -21,9 +22,10 @@ exports.create = async (req, res) => {
   }
 
   const meme = new Memes({
+    _id: new ObjectId(),
     url: req.body.url,
-    prompt: req.body.prompt,
     userId: req.body.userId,
+    prompt: req.body.prompt,
   });
 
   await meme.save();
