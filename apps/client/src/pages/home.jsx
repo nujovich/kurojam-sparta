@@ -3,7 +3,7 @@ import { TrendingUp } from 'lucide-react'
 import ImageData from '../components/cloudinary/ImageDataFunction'
 import SearchBar from '../components/serachbar/SearchBar'
 import MemeCard from '../components/MemeCard/MemeCard'
-import { createOne, getOne, request } from '../lib/entity'
+import { createOne, getOne, getAll } from '../lib/entity'
 import { SignedIn } from '@clerk/clerk-react'
 
 function Home() {
@@ -13,7 +13,11 @@ function Home() {
 
   useEffect(() => {
     const fetchTrendring = async () => {
-      const res = await request('memes/trending')
+      const res = await getAll('memes/trending')
+      if(res.error) {
+        console.log(res.error)
+        return;
+      }
       setTrending(res)
     }
     fetchTrendring()
@@ -56,14 +60,14 @@ function Home() {
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         {trending.map((meme) => (
-          <div key={meme.id}>
-            <img
-              src={meme.url}
-              alt={meme.name}
-              className="w-auto h-auto max-w-full max-h-96"
-            />
-          </div>
-        ))}
+            <div key={meme.id}>
+              <img
+                src={meme.url}
+                alt={meme.name}
+                className="w-auto h-auto max-w-full max-h-96"
+              />
+            </div>
+          ))}
       </div>
     </>
   )
