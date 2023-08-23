@@ -31,7 +31,7 @@ export function MainNav({ className, ...props }) {
           Rate Memes
         </Link>
         <Link
-          to="/About"
+          to="/about"
           className="text-sm font-medium transition-colors hover:font-bold"
         >
           About Us
