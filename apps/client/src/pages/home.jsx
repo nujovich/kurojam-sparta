@@ -1,25 +1,20 @@
-import { useState, useEffect } from "react";
-import { TrendingUp } from "lucide-react";
-import ImageData from "../components/cloudinary/ImageDataFunction";
-import SearchBar from "../components/serachbar/SearchBar";
-import MemeCard from "../components/MemeCard/MemeCard";
-import { createOne, request } from '../lib/entity'
-import { Button } from '@/components/ui/button'
-import { useToast } from '@/components/ui/use-toast'
-import { useUser } from '@clerk/clerk-react'
+import { useState, useEffect } from 'react'
+import { TrendingUp } from 'lucide-react'
+import ImageData from '../components/cloudinary/ImageDataFunction'
+import SearchBar from '../components/serachbar/SearchBar'
+import MemeCard from '../components/MemeCard/MemeCard'
+import { getAll, request } from '../lib/entity'
 
 function Home() {
-  const toast = useToast()
   const [trending, setTrending] = useState([])
-  const { user } = useUser()
-  const [image, setImage] = useState({
-    url: 'https://google.com',
-    prompt: 'Prompt test',
-    user: user?.username,
-  })
+
   useEffect(() => {
     const fetchTrendring = async () => {
-      const res = await request('memes/trending')
+      const res = await getAll('memes/trending')
+      if(res.error) {
+        console.log(res.error)
+        return;
+      }
       setTrending(res)
     }
     fetchTrendring()
@@ -62,17 +57,17 @@ function Home() {
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         {trending.map((meme) => (
-          <div key={meme._id}>
-            <img
-              src={meme.url}
-              alt={meme.prompt}
-              className="w-auto h-auto max-w-full max-h-96"
-            />
-          </div>
-        ))}
+            <div key={meme.id}>
+              <img
+                src={meme.url}
+                alt={meme.name}
+                className="w-auto h-auto max-w-full max-h-96"
+              />
+            </div>
+          ))}
       </div>
     </>
   )
 }
 
-export default Home;
+export default Home

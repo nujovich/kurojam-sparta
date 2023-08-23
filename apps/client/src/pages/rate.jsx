@@ -111,6 +111,11 @@ function Rate() {
   const fetchImage = async (needsToReload = true) => {
     setIsLoading(needsToReload)
     const res = await request('memes/rate')
+    if(res.error) {
+      console.log(res.error)
+      return;
+    }
+
     setIsLoading(false)
     setImage(res)
   }

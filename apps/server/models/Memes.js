@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const MemesSchema = new Schema({
+  _id: Schema.Types.ObjectId,
   url: String,
-  prompt: String,
   date: {
     type: Date,
     default: Date.now,
@@ -12,7 +12,8 @@ const MemesSchema = new Schema({
     type: Number,
     default: 0,
   },
-  user: String,
+  userId: String,
+  prompt: String,
 });
 
 module.exports = mongoose.model("Memes", MemesSchema);
