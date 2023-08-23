@@ -1,20 +1,24 @@
-import { useState, useEffect } from "react";
-import { TrendingUp } from "lucide-react";
-import ImageData from "../components/cloudinary/ImageDataFunction";
-import SearchBar from "../components/serachbar/SearchBar";
-import MemeCard from "../components/MemeCard/MemeCard";
-import { request } from "../lib/entity";
+import { useState, useEffect } from 'react'
+import { TrendingUp } from 'lucide-react'
+import ImageData from '../components/cloudinary/ImageDataFunction'
+import SearchBar from '../components/serachbar/SearchBar'
+import MemeCard from '../components/MemeCard/MemeCard'
+import { getAll, request } from '../lib/entity'
 
 function Home() {
-  const [trending, setTrending] = useState([]);
+  const [trending, setTrending] = useState([])
 
   useEffect(() => {
     const fetchTrendring = async () => {
-      const res = await request("memes/trending");
-      setTrending(res);
-    };
-    fetchTrendring();
-  }, []);
+      const res = await getAll('memes/trending')
+      if(res.error) {
+        console.log(res.error)
+        return;
+      }
+      setTrending(res)
+    }
+    fetchTrendring()
+  }, [])
 
   return (
     <>
@@ -40,17 +44,17 @@ function Home() {
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         {trending.map((meme) => (
-          <div key={meme.id}>
-            <img
-              src={meme.url}
-              alt={meme.name}
-              className="w-auto h-auto max-w-full max-h-96"
-            />
-          </div>
-        ))}
+            <div key={meme.id}>
+              <img
+                src={meme.url}
+                alt={meme.name}
+                className="w-auto h-auto max-w-full max-h-96"
+              />
+            </div>
+          ))}
       </div>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home
