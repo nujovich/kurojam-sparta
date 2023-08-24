@@ -12,6 +12,7 @@ function Home() {
   const { toast } = useToast()
 
   const [image, setImage] = useState()
+  const [imagePrompt, setImagePrompt] = useState()
   const [trending, setTrending] = useState([])
   const [isSearching, setIsSearching] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -32,8 +33,8 @@ function Home() {
     setIsSaving(true)
     const res = await createOne('memes', {
       url: image,
-      prompt: 'Duck',
       userId: user?.id,
+      prompt: imagePrompt,  
     })
     if (res.error) {
       console.log(res.error)
@@ -54,6 +55,7 @@ function Home() {
     })
     const imageUrl = result.data[0].url
     setImage(imageUrl)
+    setImagePrompt(prompt)
     setIsSearching(false)
   }
 
