@@ -2,6 +2,7 @@ const Memes = require("../models/Memes");
 const { generateImage } = require("../services/ai");
 const { getUser } = require("../services/clerk");
 const { ObjectId } = require("mongodb");
+const { uploadFile } = require("../services/s3");
 
 exports.getAll = async (req, res) => {
   const memes = await Memes.find();
@@ -15,7 +16,7 @@ exports.getOne = async (req, res) => {
   const result = {
     ...meme._doc,
     user,
-  }
+  };
   res.json(result);
 };
 
@@ -27,9 +28,11 @@ exports.create = async (req, res) => {
     return;
   }
 
+  const url = await uploadFile(req.body.url);
+
   const meme = new Memes({
     _id: new ObjectId(),
-    url: req.body.url,
+    url,
     userId: req.body.userId,
     prompt: req.body.prompt,
   });
