@@ -1,7 +1,5 @@
 # DUCKUROPHY 🦆🏆
 
-![DuckMeme Logo](https://kurojam-sparta-client.onrender.com/)
-
 Duckurophy is a web application that lets you create hilarious images featuring our feathered friends, ducks! Express your creativity by generating memes with OpenIA and adorable duck images. This project brings together a combination of modern technologies for a seamless user experience.
 
 ## Features
@@ -110,4 +108,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Let your creativity take flight with DuckMeme Generator! Create rib-tickling duck memes and share them with your friends. Quack up your social media with laughter today! 🦆🎉
+Let your creativity take flight with Duckurophy! Create rib-tickling duck memes 🏆 🦆
