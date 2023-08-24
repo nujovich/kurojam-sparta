@@ -5,8 +5,9 @@ import { Button } from "./ui/button";
 import { UserNav } from "./user-nav";
 import { MainNav } from "./main-nav";
 import { ModeToggle } from "./mode-toggle";
+import { Toaster } from './ui/toaster'
 
-const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
 function Layout() {
   return (
@@ -25,12 +26,13 @@ function Layout() {
             </div>
             <div className="flex-1 space-y-4 p-8 pt-6">
               <Outlet />
+              <Toaster />
             </div>
           </div>
         </div>
       </ThemeProvider>
     </ClerkProvider>
-  );
+  )
 }
 
 export default Layout;

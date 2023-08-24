@@ -1,27 +1,52 @@
 import { useState, useEffect } from 'react'
-import { TrendingUp } from 'lucide-react'
-import ImageData from '../components/cloudinary/ImageDataFunction'
+import { Loader2, TrendingUp } from 'lucide-react'
+import { SignedIn, useUser } from '@clerk/clerk-react'
 import SearchBar from '../components/serachbar/SearchBar'
 import MemeCard from '../components/MemeCard/MemeCard'
-import { createOne, getOne, getAll } from '../lib/entity'
-import { SignedIn } from '@clerk/clerk-react'
+import { Button } from '@/components/ui/button'
+import { useToast } from '@/components/ui/use-toast'
+import { createOne, getOne, getAll, request } from '../lib/entity'
 
 function Home() {
-  const [trending, setTrending] = useState([])
+  const { user } = useUser()
+  const { toast } = useToast()
+
   const [image, setImage] = useState()
+  const [imagePrompt, setImagePrompt] = useState()
+  const [trending, setTrending] = useState([])
   const [isSearching, setIsSearching] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     const fetchTrendring = async () => {
       const res = await getAll('memes/trending')
-      if(res.error) {
+      if (res.error) {
         console.log(res.error)
-        return;
+        return
       }
       setTrending(res)
     }
     fetchTrendring()
   }, [])
+
+  const handleOnSaveDuck = async () => {
+    setIsSaving(true)
+    const res = await createOne('memes', {
+      url: image,
+      userId: user?.id,
+      prompt: imagePrompt,  
+    })
+    if (res.error) {
+      console.log(res.error)
+      return
+    }
+
+    setIsSaving(false)
+    toast({
+      title: 'Duck created',
+      description: 'Duck created successfully',
+    })
+  }
 
   const handleSearch = async (prompt) => {
     setIsSearching(true)
@@ -30,6 +55,7 @@ function Home() {
     })
     const imageUrl = result.data[0].url
     setImage(imageUrl)
+    setImagePrompt(prompt)
     setIsSearching(false)
   }
 
@@ -42,13 +68,23 @@ function Home() {
         <div className="flex flex-col">
           <SearchBar onClick={handleSearch} isLoading={isSearching} />
           {image && (
-            <div className="flex flex-wrap gap-4">
-              <img
-                src={image}
-                alt="Image"
-                className="w-auto h-auto max-w-full max-h-96"
-              />
-            </div>
+            <>
+              <div className="flex flex-wrap gap-4">
+                <img
+                  src={image}
+                  alt="Image"
+                  className="w-auto h-auto max-w-full max-h-96"
+                />
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <Button className="mt-2" onClick={handleOnSaveDuck}>
+                  {isSaving && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  {!isSaving && 'Save Duck'}
+                </Button>
+              </div>
+            </>
           )}
         </div>
       </SignedIn>
@@ -60,14 +96,14 @@ function Home() {
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         {trending.map((meme) => (
-            <div key={meme.id}>
-              <img
-                src={meme.url}
-                alt={meme.name}
-                className="w-auto h-auto max-w-full max-h-96"
-              />
-            </div>
-          ))}
+          <div key={meme.id}>
+            <img
+              src={meme.url}
+              alt={meme.name}
+              className="w-auto h-auto max-w-full max-h-96"
+            />
+          </div>
+        ))}
       </div>
     </>
   )
