@@ -1,23 +1,19 @@
 import { useState, useEffect } from 'react'
 import { TrendingUp } from 'lucide-react'
-import ImageData from '../components/cloudinary/ImageDataFunction'
+import { SignedIn, useUser } from '@clerk/clerk-react'
 import SearchBar from '../components/serachbar/SearchBar'
 import MemeCard from '../components/MemeCard/MemeCard'
-import { getAll, request } from '../lib/entity'
-import { createOne } from '../lib/entity'
-import { useUser } from '@clerk/clerk-react'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
+import { createOne, getOne, getAll, request } from '../lib/entity'
 
 function Home() {
   const { user } = useUser()
-  const [trending, setTrending] = useState([])
-  const [image, setImage] = useState({
-    url: 'http://www.google.com',
-    prompt: 'Duck',
-    userId: user?.username,
-  })
   const toast = useToast()
+
+  const [image, setImage] = useState()
+  const [trending, setTrending] = useState([])
+  const [isSearching, setIsSearching] = useState(false)
 
   useEffect(() => {
     const fetchTrendring = async () => {
@@ -32,7 +28,11 @@ function Home() {
   }, [])
 
   const handleOnSaveDuck = async () => {
-    const res = await createOne('memes', image)
+    const res = await createOne('memes', {
+      url: image,
+      prompt: 'Duck',
+      userId: user?.id,
+    })
     if (!res.error) {
       toast({
         title: 'Duck created',
@@ -40,22 +40,36 @@ function Home() {
       })
     }
   }
+
+  const handleSearch = async (prompt) => {
+    setIsSearching(true)
+    const result = await createOne('memes/generate', {
+      prompt,
+    })
+    const imageUrl = result.data[0].url
+    setImage(imageUrl)
+    setIsSearching(false)
+  }
+
   return (
     <>
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-      </div>
-      <div className="flex flex-col items-center">
-        <SearchBar />
-        <div className="mt-4">
-          <MemeCard />
+      <SignedIn>
+        <div className="flex items-center justify-between space-y-2">
+          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
         </div>
-        <p className="text-slate-400">
-          Click on the Vite and React logos to learn more
-        </p>
-        {/* Esto de abajo es la llamada del cloudinary que muestra la info tmb */}
-        <ImageData />
-      </div>
+        <div className="flex flex-col">
+          <SearchBar onClick={handleSearch} isLoading={isSearching} />
+          {image && (
+            <div className="flex flex-wrap gap-4">
+              <img
+                src={image}
+                alt="Image"
+                className="w-auto h-auto max-w-full max-h-96"
+              />
+            </div>
+          )}
+        </div>
+      </SignedIn>
       <div className="flex items-center justify-between space-y-2">
         <div className="flex items-center space-x-2">
           <h2 className="text-3xl font-bold tracking-tight">Trending</h2>
