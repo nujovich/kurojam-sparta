@@ -16,7 +16,7 @@ exports.getOne = async (req, res) => {
   const result = {
     ...meme._doc,
     user,
-  };
+  }
   res.json(result);
 };
 
