@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { Github, ThumbsUp, TrendingUp, Twitch, Twitter } from 'lucide-react'
 import ImageData from '../components/cloudinary/ImageDataFunction'
 import SearchBar from '../components/serachbar/SearchBar'
@@ -114,7 +114,7 @@ function Rate() {
   const [disableLike, setDisableLike] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  const fetchImage = useCallback(async (needsToReload = true) => {
+  const fetchImage = async (needsToReload = true) => {
     setIsLoading(needsToReload)
     let res
     if (parms.id && !searchWithParams) {
@@ -133,7 +133,7 @@ function Rate() {
     setSearchWithParams(true)
     setIsLoading(false)
     setImage(res)
-  }, []);
+  }
 
   useEffect(() => {
     fetchImage()
