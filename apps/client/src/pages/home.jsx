@@ -119,7 +119,7 @@ function Home() {
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         {trending.map((meme) => (
-          <div key={meme.id}>
+          <div key={meme._id}>
             <img
               src={meme.url}
               alt={meme.name}
