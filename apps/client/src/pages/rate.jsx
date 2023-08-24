@@ -8,6 +8,7 @@ import { Card, CardContent, CardFooter } from '../components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Link } from 'react-router-dom'
+import { useToast } from '@/components/ui/use-toast'
 
 const MemeContent = ({ image, onLike, onNext, disableLike, loading }) => (
   <Card className="w-full max-w-2xl items-center p-2 py-10">
@@ -88,7 +89,9 @@ const UserContent = ({ user, loading }) => {
                           </Link>
                         )}
                         {account.provider === 'oauth_twitch' && (
-                          <Link to={`https://www.twitch.tv/${user?.externalAccounts[2]?.username}`}>                 
+                          <Link
+                            to={`https://www.twitch.tv/${user?.externalAccounts[2]?.username}`}
+                          >
                             <Twitch className="w-5 h-5" />
                           </Link>
                         )}
@@ -104,6 +107,7 @@ const UserContent = ({ user, loading }) => {
 }
 
 function Rate() {
+  const { toast } = useToast()
   const [image, setImage] = useState()
   const [disableLike, setDisableLike] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -111,8 +115,12 @@ function Rate() {
   const fetchImage = async (needsToReload = true) => {
     setIsLoading(needsToReload)
     const res = await request('memes/rate')
-    if(res.error) {
-      console.log(res.error)
+    if (res.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem on getting the image to rate.',
+      });
       return;
     }
 
@@ -126,6 +134,14 @@ function Rate() {
 
   const handleLike = async () => {
     const res = await request(`memes/${image._id}/like`, {}, 'POST')
+    if (res.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem on liking the image.',
+      })
+      return;
+    }
     setImage((prev) => ({ ...prev, likes: res.likes }))
     setDisableLike(true)
   }
