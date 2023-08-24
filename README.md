@@ -19,14 +19,15 @@ DuckMeme Generator is a web application that lets you create hilarious memes fea
 - **JavaScript Framework**: [React](https://reactjs.org/)
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **UI Library**: [Shadcdn UI](https://shadcdn.com/ui)
+- **Authentication**: [Clerk](https://clerk.dev/)
 
 ### Back-End
 
 - **Runtime Environment**: [Node.js](https://nodejs.org/)
 - **Web Framework**: [Express](https://expressjs.com/)
-- **Authentication**: [Clerk]
+- **Authentication**: [Clerk](https://clerk.dev/)
 - **Data Persistence**: [MongoDB](https://www.mongodb.com/)
-- **Version Control**: [Turbo Repo](https://turbo.dev/repo)
+- **Build System**: [Turbo Repo](https://turbo.dev/repo)
 - **AI Integration**: [OpenAI](https://www.openai.com/)
 - **Image Hosting**: [AWS](https://aws.com/)
 
