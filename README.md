@@ -2,7 +2,7 @@
 
 ![DuckMeme Logo](https://kurojam-sparta-client.onrender.com/)
 
-DuckMeme Generator is a web application that lets you create hilarious memes featuring our feathered friends, ducks! Express your creativity by generating memes with OpenIA and adorable duck images. This project brings together a combination of modern technologies for a seamless user experience.
+Duckurophy is a web application that lets you create hilarious images featuring our feathered friends, ducks! Express your creativity by generating memes with OpenIA and adorable duck images. This project brings together a combination of modern technologies for a seamless user experience.
 
 ## Features
 
@@ -52,13 +52,27 @@ Follow these instructions to get a copy of the DUCKUROPHY up and running on your
 
 3. **Environment Variables**:
 
+   Front-End:
+
+   Create a `.env` file in the server root directory and provide the necessary environment variables:   
+
+   ```
+   VITE_CLERK_PUBLISHABLE_KEY=YOUR_API_KEY
+   VITE_API_URL=YOUR_API_URL
+   ```
+
+   Back-End:
+   
    Create a `.env` file in the server root directory and provide the necessary environment variables:
 
    ```plaintext
-   MONGODB_URI=your_mongodb_connection_string
-   PORT=your_port
-   OPENAI_API_KEY=your_openai_api_key
-   CLERK_API_KEY=your_clerk_api_key
+   DB_URL=DB_URL
+   PORT=PORT
+   OPENAI_API_KEY=OPENAI_API_KEY
+   CLERK_API_KEY=CLEARK_API_KEY
+   S3_ACCESS_KEY=S3_ACCESS_KEY
+   S3_SECRET_KEY=S3_SECRET_KEY
+   S3_BUCKET_NAME=S3_BUCKET_NAME
    ```
 
 4. **Run Development Servers**:
