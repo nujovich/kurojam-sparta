@@ -38,8 +38,8 @@ Follow these instructions to get a copy of the DUCKUROPHY up and running on your
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/duckmeme-generator.git
-   cd duckmeme-generator
+   git clone https://github.com/nujovich/kurojam-sparta.git
+   cd kurojam-sparta
    ```
 
 2. **Install Dependencies**:
@@ -62,7 +62,7 @@ Follow these instructions to get a copy of the DUCKUROPHY up and running on your
    ```
 
    Back-End:
-   
+
    Create a `.env` file in the server root directory and provide the necessary environment variables:
 
    ```plaintext
