@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Github, ThumbsUp, TrendingUp, Twitch, Twitter } from 'lucide-react'
 import ImageData from '../components/cloudinary/ImageDataFunction'
 import SearchBar from '../components/serachbar/SearchBar'
@@ -7,7 +7,7 @@ import { getOne, request } from '../lib/entity'
 import { Card, CardContent, CardFooter } from '../components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useToast } from '@/components/ui/use-toast'
 
 const MemeContent = ({ image, onLike, onNext, disableLike, loading }) => (
@@ -107,26 +107,33 @@ const UserContent = ({ user, loading }) => {
 }
 
 function Rate() {
+  const parms = useParams()
   const { toast } = useToast()
   const [image, setImage] = useState()
+  const [searchWithParams, setSearchWithParams] = useState(false)
   const [disableLike, setDisableLike] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  const fetchImage = async (needsToReload = true) => {
+  const fetchImage = useCallback(async (needsToReload = true) => {
     setIsLoading(needsToReload)
-    const res = await request('memes/rate')
+    let res
+    if (parms.id && !searchWithParams) {
+      res = await getOne(`memes/${parms.id}`)
+    } else {
+      res = await request('memes/rate')
+    }
     if (res.error) {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
         description: 'There was a problem on getting the image to rate.',
-      });
-      return;
+      })
+      return
     }
-
+    setSearchWithParams(true)
     setIsLoading(false)
     setImage(res)
-  }
+  }, []);
 
   useEffect(() => {
     fetchImage()
@@ -140,7 +147,7 @@ function Rate() {
         title: 'Uh oh! Something went wrong.',
         description: 'There was a problem on liking the image.',
       })
-      return;
+      return
     }
     setImage((prev) => ({ ...prev, likes: res.likes }))
     setDisableLike(true)

@@ -10,7 +10,13 @@ exports.getAll = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   const meme = await Memes.findById(req.params.id);
-  res.json(meme);
+  const user = await getUser(meme.userId);
+  
+  const result = {
+    ...meme._doc,
+    user,
+  }
+  res.json(result);
 };
 
 exports.create = async (req, res) => {

@@ -6,6 +6,7 @@ import MemeCard from '../components/MemeCard/MemeCard'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { createOne, getOne, getAll, request } from '../lib/entity'
+import { Link } from 'react-router-dom'
 
 function Home() {
   const { user } = useUser()
@@ -119,13 +120,13 @@ function Home() {
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         {trending.map((meme) => (
-          <div key={meme._id}>
+          <Link key={meme._id} to={`/rate/${meme._id}`}>
             <img
               src={meme.url}
               alt={meme.name}
               className="w-auto h-auto max-w-full max-h-96"
             />
-          </div>
+          </Link>
         ))}
       </div>
     </>
