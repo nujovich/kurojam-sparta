@@ -1,13 +1,13 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./pages/home";
-import Rate from "./pages/rate";
-import About from "./pages/about";
-import ErrorPage from "./pages/error";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Layout from './components/Layout'
+import Home from './pages/home'
+import Rate from './pages/rate'
+import About from './pages/about'
+import ErrorPage from './pages/error'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
@@ -16,19 +16,23 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "rate",
+        path: 'rate',
         element: <Rate />,
       },
       {
-        path: "about",
+        path: 'rate/:id',
+        element: <Rate />,
+      },
+      {
+        path: 'about',
         element: <About />,
       },
     ],
   },
-]);
+])
 
 function App() {
-  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
+  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
 }
 
 export default App

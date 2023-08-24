@@ -6,6 +6,7 @@ import MemeCard from '../components/MemeCard/MemeCard'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { createOne, getOne, getAll, request } from '../lib/entity'
+import { Link } from 'react-router-dom'
 
 function Home() {
   const { user } = useUser()
@@ -21,7 +22,11 @@ function Home() {
     const fetchTrendring = async () => {
       const res = await getAll('memes/trending')
       if (res.error) {
-        console.log(res.error)
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: 'There was a problem on fetching trending.',
+        })
         return
       }
       setTrending(res)
@@ -34,10 +39,15 @@ function Home() {
     const res = await createOne('memes', {
       url: image,
       userId: user?.id,
-      prompt: imagePrompt,  
+      prompt: imagePrompt,
     })
     if (res.error) {
-      console.log(res.error)
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem saving the duck.',
+      })
+      setIsSaving(false)
       return
     }
 
@@ -46,13 +56,28 @@ function Home() {
       title: 'Duck created',
       description: 'Duck created successfully',
     })
+
+    setImage()
+    setImagePrompt()
   }
 
   const handleSearch = async (prompt) => {
     setIsSearching(true)
+    setImagePrompt(prompt)
+    setImage()
     const result = await createOne('memes/generate', {
       prompt,
     })
+    if (result.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem with the search.',
+      })
+      setIsSearching(false)
+      return
+    }
+
     const imageUrl = result.data[0].url
     setImage(imageUrl)
     setImagePrompt(prompt)
@@ -65,7 +90,7 @@ function Home() {
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           <SearchBar onClick={handleSearch} isLoading={isSearching} />
           {image && (
             <>
@@ -96,13 +121,13 @@ function Home() {
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         {trending.map((meme) => (
-          <div key={meme.id}>
+          <Link key={meme._id} to={`/rate/${meme._id}`}>
             <img
               src={meme.url}
               alt={meme.name}
               className="w-auto h-auto max-w-full max-h-96"
             />
-          </div>
+          </Link>
         ))}
       </div>
     </>
