@@ -13,7 +13,9 @@ export function MainNav({ className, ...props }) {
           className="h-10"
         />
       </Link>
-      <h1 className="text-2xl font-bold hidden md:block">DUCKUROPHY</h1>
+      <Link to="/">
+        <h1 className="text-2xl font-bold hidden md:block">DUCKUROPHY</h1>
+      </Link>
       <nav
         className={cn('flex items-center space-x-4 lg:space-x-6', className)}
         {...props}
