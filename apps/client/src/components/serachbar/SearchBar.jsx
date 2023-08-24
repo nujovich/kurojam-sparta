@@ -1,35 +1,70 @@
-import { Button } from '@/components/ui/button'
 import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { Loader2 } from 'lucide-react'
+import * as z from 'zod'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import ImageData from '../cloudinary/ImageDataFunction'
-import { Loader2 } from "lucide-react"
+import { toast } from '@/components/ui/use-toast'
+
+const FormSchema = z.object({
+  prompt: z
+    .string()
+    .min(4, {
+      message: 'Prompt must be at least 4 characters.',
+    })
+    .regex(/(duck|pato)/, {
+      message: 'Prompt must contain a duck.',
+    }),
+})
 
 const SearchBar = ({ onClick, isLoading }) => {
-  const [searchValue, setSearchValue] = useState([])
+  const form = useForm({
+    resolver: zodResolver(FormSchema),
+  })
 
-  const handleInputOnChange = (event) => {
-    setSearchValue(event.target.value)
-  }
-
-  const handleClick = async () => {
-    onClick(searchValue)
+  function onSubmit(data) {
+    onClick(data.prompt)
+    form.reset({
+      prompt: '',
+    });
   }
 
   return (
-    <div className="flex items-center w-full my-4 space-x-6">
-      <div className="flex w-full max-w-lg items-center space-x-2">
-        <Input
-          type="text"
-          placeholder="A duck with a hat"
-          className="w-full"
-          onChange={handleInputOnChange}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <FormField
+          control={form.control}
+          name="prompt"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  placeholder="A duck with a hat"
+                  className="w-full"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        <Button disabled={isLoading} onClick={handleClick}>
+        <Button type="submit" disabled={isLoading}>
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {!isLoading && 'Search'}
         </Button>
-      </div>
-    </div>
+      </form>
+    </Form>
   )
 }
 
